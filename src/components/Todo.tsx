@@ -13,11 +13,7 @@ type Props = {
   onDelete: (id: number) => void;
 };
 
-export const Todo: React.FC<Props> = ({
-  todo,
-  isLoading,
-  onDelete,
-}) => {
+export const Todo: React.FC<Props> = ({ todo, isLoading, onDelete }) => {
   return (
     <div
       data-cy="Todo"

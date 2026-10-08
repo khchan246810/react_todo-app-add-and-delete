@@ -10,11 +10,7 @@ type Props = {
   onDelete: (id: number) => void;
 };
 
-export const TodoList: React.FC<Props> = ({
-  todos,
-  processings,
-  onDelete,
-}) => {
+export const TodoList: React.FC<Props> = ({ todos, processings, onDelete }) => {
   return (
     <section className="todoapp__main" data-cy="TodoList">
       {todos.map(todo => (

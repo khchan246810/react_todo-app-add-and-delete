@@ -4,20 +4,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { UserWarning } from './UserWarning';
-import {
-  USER_ID,
-  createTodo,
-  deleteTodo,
-  getTodos,
-} from './api/todos';
+import { USER_ID, createTodo, deleteTodo, getTodos } from './api/todos';
 import { Todo as TodoType } from './types/Todo';
 import { Filter } from './components/Filter';
 import { Todo } from './components/Todo';
 import { TodoList } from './components/TodoList';
-import {
-  NewTodo,
-  NewTodoHandle,
-} from './components/NewTodo';
+import { NewTodo, NewTodoHandle } from './components/NewTodo';
 
 export const FILTERS = {
   all: 'all',
@@ -155,9 +147,7 @@ export const App: React.FC = () => {
         newTodoRef.current?.focus();
       })
       .finally(() => {
-        setProcessings(current =>
-          current.filter(todoId => todoId !== id),
-        );
+        setProcessings(current => current.filter(todoId => todoId !== id));
       });
   };
 
@@ -169,17 +159,13 @@ export const App: React.FC = () => {
     setProcessings(current => [...current, ...completedIds]);
 
     Promise.allSettled(
-      completedIds.map(id =>
-        deleteTodo(id).then(() => id),
-      ),
+      completedIds.map(id => deleteTodo(id).then(() => id)),
     ).then(results => {
       const successfulIds = results
         .filter(result => result.status === 'fulfilled')
         .map(result => result.value);
 
-      const hasError = results.some(
-        result => result.status === 'rejected',
-      );
+      const hasError = results.some(result => result.status === 'rejected');
 
       if (successfulIds.length > 0) {
         setTodos(currentTodos => {
@@ -187,9 +173,7 @@ export const App: React.FC = () => {
             return currentTodos;
           }
 
-          return currentTodos.filter(
-            todo => !successfulIds.includes(todo.id),
-          );
+          return currentTodos.filter(todo => !successfulIds.includes(todo.id));
         });
       }
 
@@ -214,9 +198,7 @@ export const App: React.FC = () => {
           <button
             type="button"
             className={classNames('todoapp__toggle-all', {
-              active:
-                loadedTodos.length > 0 &&
-                activeTodos.length === 0,
+              active: loadedTodos.length > 0 && activeTodos.length === 0,
             })}
             data-cy="ToggleAllButton"
           />
@@ -231,10 +213,7 @@ export const App: React.FC = () => {
         {isLoading && (
           <section className="todoapp__main" data-cy="TodoList">
             <div className="todo">
-              <div
-                data-cy="TodoLoader"
-                className="modal overlay is-active"
-              >
+              <div data-cy="TodoLoader" className="modal overlay is-active">
                 <div className="modal-background has-background-white-ter" />
                 <div className="loader" />
               </div>
@@ -252,11 +231,7 @@ export const App: React.FC = () => {
 
         {!isLoading && tempTodo && (
           <section className="todoapp__main">
-            <Todo
-              todo={tempTodo}
-              isLoading
-              onDelete={() => {}}
-            />
+            <Todo todo={tempTodo} isLoading onDelete={() => {}} />
           </section>
         )}
 

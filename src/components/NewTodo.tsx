@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 type Props = {
@@ -32,9 +27,7 @@ export const NewTodo = React.forwardRef<NewTodoHandle, Props>(
       }
     }, [isSubmitting]);
 
-    const handleSubmit = async (
-      event: React.FormEvent<HTMLFormElement>,
-    ) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       const trimmedTitle = title.trim();
