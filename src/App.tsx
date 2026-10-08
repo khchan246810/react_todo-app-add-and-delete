@@ -194,21 +194,29 @@ export const App: React.FC = () => {
       <h1 className="todoapp__title">todos</h1>
 
       <div className="todoapp__content">
-        <header className="todoapp__header">
-          <button
-            type="button"
-            className={classNames('todoapp__toggle-all', {
-              active: loadedTodos.length > 0 && activeTodos.length === 0,
-            })}
-            data-cy="ToggleAllButton"
-          />
+        {loadedTodos.length > 0 ? (
+          <header className="todoapp__header">
+            <button
+              type="button"
+              className={classNames('todoapp__toggle-all', {
+                active: activeTodos.length === 0,
+              })}
+              data-cy="ToggleAllButton"
+            />
 
+            <NewTodo
+              ref={newTodoRef}
+              onAdd={addTodo}
+              isSubmitting={isSubmitting}
+            />
+          </header>
+        ) : (
           <NewTodo
             ref={newTodoRef}
             onAdd={addTodo}
             isSubmitting={isSubmitting}
           />
-        </header>
+        )}
 
         {isLoading && (
           <section className="todoapp__main" data-cy="TodoList">
